@@ -1,9 +1,9 @@
-import './App.css';
+import Router from './router/Router';
 
-function App() {
+const App = () => {
   return (
     <div>
-      test
+      <Router />
     </div>
   );
 }
