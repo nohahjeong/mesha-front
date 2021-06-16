@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-router';
 import { useForm } from '../../hooks/useForm';
+import axios from 'axios';
 
 const maskPhoneNumber = (value) => {
     return value
@@ -11,7 +12,7 @@ const maskPhoneNumber = (value) => {
 };
 
 const RegistrationPage = () => {
-    const history = useHistory()
+    // const history = useHistory()
     const [form, onChangeInput] = useForm({
         name: '',
         email: '',
@@ -35,15 +36,29 @@ const RegistrationPage = () => {
     }
 
     const onSubmit = (event) => {
-        const count = Object.values(skills).filter(skill => skill === true).length
+        const checkedSkillsCount = Object.values(skills).filter(skill => skill === true).length
 
-        if (count >= 1 && count <= 3) {
-            // mandar para database
-            alert('ok')
-            console.log(form, phoneNumber, skills)
-            history.push('/')
+        if (phoneNumber && phoneNumber.length < 15) {
+            alert('O número de telefone é inválido')
         } else {
-            alert('Selecione de 1 a 3 conhecimentos.')
+            if (checkedSkillsCount >= 1 && checkedSkillsCount <= 3) {
+                alert('ok')
+
+                const body = {
+                    name: form.name,
+                    email: form.email,
+                    cpf: form.cpf,
+                    phoneNumber: phoneNumber,
+                    skills: skills
+                }
+                console.log(body)
+
+                axios.post(`http://localhost:3003/candidates/register`, body)
+                // history.push('/')
+            } else {
+                alert('Selecione de 1 a 3 conhecimentos.')
+
+            }
         }
 
         event.preventDefault()
@@ -54,8 +69,9 @@ const RegistrationPage = () => {
             RegistrationPage
             <form onSubmit={onSubmit}>
                 <div>
-                    <label>Nome: </label>
+                    <label>Nome*: </label>
                     <input
+                        placeholder='Obrigatório'
                         onChange={onChangeInput}
                         value={form.name}
                         name={'name'}
@@ -66,8 +82,9 @@ const RegistrationPage = () => {
                 </div>
 
                 <div>
-                    <label>E-mail: </label>
+                    <label>E-mail*: </label>
                     <input
+                        placeholder='Obrigatório'
                         onChange={onChangeInput}
                         value={form.email}
                         name={'email'}
@@ -78,8 +95,9 @@ const RegistrationPage = () => {
                 </div>
 
                 <div>
-                    <label>CPF: </label>
+                    <label>CPF*: </label>
                     <input
+                        placeholder='Obrigatório'
                         onChange={onChangeInput}
                         value={form.cpf}
                         name={'cpf'}
@@ -94,6 +112,7 @@ const RegistrationPage = () => {
                 <div>
                     <label>Celular: </label>
                     <input
+                        placeholder='Opcional'
                         onChange={(event) => setPhoneNumber(maskPhoneNumber(event.target.value))}
                         value={phoneNumber}
                         name={'phoneNumber'}
@@ -102,7 +121,7 @@ const RegistrationPage = () => {
                 </div>
 
                 <div>
-                    <label>Conhecimentos: </label>
+                    <label>Conhecimentos*: </label>
                     <label>
                         <input
                             onChange={onCheckboxChange}
