@@ -1,6 +1,6 @@
 import { BrowserRouter as Browser, Switch, Route } from 'react-router-dom';
 import RegistrationPage from '../pages/RegistrationPage';
-import RegistrationListPage from '../pages/RegistrationListPage';
+import ListPage from '../pages/ListPage';
 import RegistrationValidationPage from '../pages/RegistrationValidationPage';
 
 const Router = () => {
@@ -12,7 +12,7 @@ const Router = () => {
                 </Route>
 
                 <Route exact path='/registros'>
-                    <RegistrationListPage />
+                    <ListPage />
                 </Route>
 
                 <Route exact path='/NOMEDOCOLABORADOR/validar'>

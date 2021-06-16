@@ -4,7 +4,7 @@ import CandidateListItem from "../../components/CandidateListItem";
 import { useHistory } from 'react-router';
 import { goToValidationPage } from "../../router/coordinator";
 
-const RegistrationListPage = () => {
+const ListPage = () => {
     const history = useHistory()
 
     const candidates = useRequestData(`${BASE_URL}/candidates/getAllCandidates`, [])
@@ -26,4 +26,4 @@ const RegistrationListPage = () => {
     )
 };
 
-export default RegistrationListPage;
+export default ListPage;
