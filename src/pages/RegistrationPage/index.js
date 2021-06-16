@@ -2,6 +2,7 @@ import { useState } from 'react';
 // import { useHistory } from 'react-router';
 import { useForm } from '../../hooks/useForm';
 import axios from 'axios';
+import { BASE_URL } from '../../constants/url';
 
 const maskPhoneNumber = (value) => {
     return value
@@ -51,7 +52,7 @@ const RegistrationPage = () => {
                 }
 
                 axios
-                    .post(`http://localhost:3003/candidates/register`, body)
+                    .post(`${BASE_URL}/candidates/register`, body)
                     .then((res) => {
                         alert(`Parabéns ${res.data}, sua candidatura foi enviada!`)
                     })
@@ -62,7 +63,7 @@ const RegistrationPage = () => {
                             alert(err.message)
                         }
                     })
-                // history.push('/')
+                // goto
             } else {
                 alert('Selecione de 1 a 3 conhecimentos.')
 
