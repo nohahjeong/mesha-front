@@ -42,8 +42,6 @@ const RegistrationPage = () => {
             alert('O número de telefone é inválido')
         } else {
             if (checkedSkillsCount >= 1 && checkedSkillsCount <= 3) {
-                alert('ok')
-
                 const body = {
                     name: form.name,
                     email: form.email,
@@ -51,9 +49,19 @@ const RegistrationPage = () => {
                     phoneNumber: phoneNumber,
                     skills: JSON.stringify(skills)
                 }
-                console.log(body)
 
-                axios.post(`http://localhost:3003/candidates/register`, body)
+                axios
+                    .post(`http://localhost:3003/candidates/register`, body)
+                    .then((res) => {
+                        alert(`Parabéns ${res.data}, sua candidatura foi enviada!`)
+                    })
+                    .catch((err) => {
+                        if (err.message.includes('409')) {
+                            alert('CPF já cadastrado!')
+                        } else {
+                            alert(err.message)
+                        }
+                    })
                 // history.push('/')
             } else {
                 alert('Selecione de 1 a 3 conhecimentos.')
