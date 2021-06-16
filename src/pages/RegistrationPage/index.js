@@ -49,7 +49,7 @@ const RegistrationPage = () => {
                     email: form.email,
                     cpf: form.cpf,
                     phoneNumber: phoneNumber,
-                    skills: skills
+                    skills: JSON.stringify(skills)
                 }
                 console.log(body)
 
