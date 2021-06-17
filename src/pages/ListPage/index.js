@@ -14,6 +14,7 @@ const ListPage = () => {
             <CandidateListItem
                 key={candidate.cpf}
                 name={candidate.name}
+                validation={candidate.validation}
                 onClick={() => goToValidationPage(history, candidate.cpf)}
             />
         )
