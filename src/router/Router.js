@@ -1,7 +1,7 @@
 import { BrowserRouter as Browser, Switch, Route } from 'react-router-dom';
 import RegistrationPage from '../pages/RegistrationPage';
 import ListPage from '../pages/ListPage';
-import RegistrationValidationPage from '../pages/RegistrationValidationPage';
+import ValidationPage from '../pages/ValidationPage';
 
 const Router = () => {
     return (
@@ -15,8 +15,8 @@ const Router = () => {
                     <ListPage />
                 </Route>
 
-                <Route exact path='/NOMEDOCOLABORADOR/validar'>
-                    <RegistrationValidationPage />
+                <Route exact path='/NOMEDOCOLABORADOR/validar/:cpf'>
+                    <ValidationPage />
                 </Route>
             </Switch>
         </Browser>
