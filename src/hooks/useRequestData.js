@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const useRequestData = (url, initialState) => {
-    const [data, setData] = useState(initialState)
+    const [data, setData] = useState(initialState);
 
     useEffect(() => {
         axios
@@ -13,9 +13,9 @@ const useRequestData = (url, initialState) => {
             .catch((err) => {
                 alert('Erro - Tente novamente')
             })
-    }, [url])
+    }, [url]);
 
-    return (data)
+    return (data);
 };
 
 export default useRequestData;

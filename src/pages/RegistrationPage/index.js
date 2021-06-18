@@ -1,9 +1,11 @@
 import { useState } from 'react';
-// import { useHistory } from 'react-router';
+import { useHistory } from 'react-router';
+import { goToHomePage } from '../../router/coordinator';
 import { useForm } from '../../hooks/useForm';
 import axios from 'axios';
 import { BASE_URL } from '../../constants/url';
 
+// Aplicação de máscara para número de celular digitado
 const maskPhoneNumber = (value) => {
     return value
         .replace(/\D/g, "") // Substitui qualquer caráctere que não seja número por nada
@@ -13,14 +15,15 @@ const maskPhoneNumber = (value) => {
 };
 
 const RegistrationPage = () => {
-    // const history = useHistory()
+    const history = useHistory();
+
     const [form, onChangeInput] = useForm({
         name: '',
         email: '',
         cpf: ''
-    })
+    });
 
-    const [phoneNumber, setPhoneNumber] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('');
 
     const [skills, setSkills] = useState({
         git: false,
@@ -30,14 +33,14 @@ const RegistrationPage = () => {
         devops: false,
         bancoDeDados: false,
         typescript: false
-    })
+    });
 
     const onCheckboxChange = (event) => {
         setSkills({ ...skills, [event.target.name]: event.target.checked })
-    }
+    };
 
     const onSubmit = (event) => {
-        const checkedSkillsCount = Object.values(skills).filter(skill => skill === true).length
+        const checkedSkillsCount = Object.values(skills).filter(skill => skill === true).length;
 
         if (phoneNumber && phoneNumber.length < 15) {
             alert('O número de telefone é inválido')
@@ -49,33 +52,35 @@ const RegistrationPage = () => {
                     cpf: form.cpf,
                     phoneNumber: phoneNumber,
                     skills: JSON.stringify(skills)
-                }
+                };
 
                 axios
                     .post(`${BASE_URL}/candidates/register`, body)
                     .then((res) => {
-                        alert(`Parabéns ${res.data}, sua candidatura foi enviada!`)
+                        alert(`Olá ${res.data}, seu registro foi efetuado!`)
+
+                        goToHomePage(history)
                     })
                     .catch((err) => {
                         if (err.message.includes('409')) {
                             alert('CPF já cadastrado!')
                         } else {
                             alert(err.message)
-                        }
-                    })
-                // goto
+                        };
+                    });
             } else {
                 alert('Selecione de 1 a 3 conhecimentos.')
 
-            }
-        }
+            };
+        };
 
-        event.preventDefault()
-    }
+        event.preventDefault();
+    };
 
     return (
         <div>
-            RegistrationPage
+            <button onClick={() => goToHomePage(history)}>Voltar</button>
+
             <form onSubmit={onSubmit}>
                 <div>
                     <label>Nome*: </label>
@@ -205,7 +210,7 @@ const RegistrationPage = () => {
                 <button>Registrar</button>
             </form>
         </div>
-    )
+    );
 };
 
 export default RegistrationPage;
