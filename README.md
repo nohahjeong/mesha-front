@@ -1,4 +1,4 @@
-# Avaliação técnica FullStack NodeJS - `MESHA` - Front End
+# Avaliação técnica FullStack NodeJS - Front End
 
 ## Instruções
 
